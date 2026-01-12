@@ -1,0 +1,399 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <title>My website</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>
+        body {
+            background-color: rgb(211, 245, 255);
+            margin: 0;
+            padding: 0;
+            font-family: "微軟正黑體", sans-serif;
+        }
+
+
+        /* --- 1. 導覽列 --- */
+        header { background: #87d6f8; padding: 16px; text-align: center; font-weight: bold; }
+        nav {
+            background: #75bcdd;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+        }
+        nav a {
+            text-decoration: none;
+            color: #0269a9;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 15px;
+            transition: 0.3s;
+        }
+        nav a:hover { color: #0068fa; }
+
+
+        section { padding: 20px; max-width: 1200px; margin: auto; }
+
+/* ===== 區塊切換 ===== */
+#portfolio-area,#about-area{ display:none; }
+section{ max-width:1200px; margin:auto; padding:40px; }
+
+/* ===== 作品集 Grid ===== */
+.work-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+/* 單一作品 */
+.work-item{
+    position:relative;
+    aspect-ratio:4/3;
+    overflow:hidden;
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.5s;
+}
+
+/* 圖片 */
+.work-item img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:0.5s;
+}
+
+/* 資訊遮罩 */
+.work-info{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    color:#bee3fa;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    transition:0.4s;
+}
+
+/* hover 效果 */
+.work-grid:hover .work-item{
+    transform:scale(0.9);
+}
+.work-item:hover{
+    transform:scale(1.4);
+    z-index:10;
+}
+.work-item:hover .work-info{
+    opacity:1;
+}
+
+/* ===== 彈窗 ===== */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+.modal img{
+    max-width:90%;
+    max-height:90%;
+}
+
+/* ===== 名片（保留你原動畫） ===== */
+.namecard{
+    width:360px;
+    padding:56px;
+    margin:100px auto;
+    background:#deedfb;
+    border-radius:10px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 5px 10px rgba(97, 217, 253, 0.6);
+    transition:.3s;
+}
+.circle,.circle2{
+    position:absolute;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    opacity:.6;
+}
+.circle{ right:-60px; top:-60px; background:#75bcdd;}
+.circle2{ right:-40px; bottom:-40px; background:#87d6f8;}
+.namecard:hover{ transform:scale(1.1); }
+.namecard:hover .circle{ transform:scale(1.6); }
+.namecard:hover .circle2{ transform:scale(1.4); }
+
+footer{
+    text-align:center;
+    font-size:12px;
+    color:#999;
+    padding:20px;
+}
+
+/* =========================
+   RWD 設定
+========================= */
+
+/* ===== 平板 ===== */
+@media (max-width: 1024px) {
+
+    nav{
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .work-grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* hover 放大幅度降低 */
+    .work-grid:hover .work-item{
+        transform: scale(0.95);
+    }
+
+    .work-item:hover{
+        transform: scale(1.15);
+    }
+
+    .namecard{
+        margin: 60px auto;
+        transform: none;
+    }
+}
+
+/* ===== 手機 ===== */
+@media (max-width: 600px) {
+
+    header{
+        font-size: 18px;
+        padding: 12px;
+    }
+
+    nav{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav a{
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    #home-area{
+        padding: 30px 15px;
+    }
+
+    #home-area h1{
+        font-size: 22px;
+    }
+
+    /* 作品一排一張 */
+    .work-grid{
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* 手機關閉 hover 放大 */
+    .work-grid:hover .work-item,
+    .work-item:hover{
+        transform: none;
+    }
+
+    .work-info{
+        opacity: 1;
+        background: linear-gradient(
+            to top,
+            rgba(0,0,0,0.7),
+            rgba(0,0,0,0)
+        );
+        justify-content: flex-end;
+        padding-bottom: 15px;
+    }
+
+    /* 名片 RWD */
+    .namecard{
+        width: 90%;
+        padding: 30px;
+        margin: 40px auto;
+    }
+
+    .name{
+        font-size: 22px;
+    }
+}
+
+
+/* ===== Banner ===== */
+.banner {
+    width: 100%;
+    height: 220px;
+    background-image: url("0013.jpg"); /* ← 換成你的 banner 圖 */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+/* 半透明遮罩，讓文字更清楚 */
+.banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.banner h2 {
+    position: relative;
+    color: #fff;
+    font-size: 36px;
+    letter-spacing: 2px;
+    z-index: 1;
+}
+
+/* hover 效果（桌機） */
+.banner:hover {
+    filter: brightness(1.1);
+}
+
+/* ===== Banner RWD ===== */
+@media (max-width: 768px) {
+    .banner {
+        height: 150px;
+    }
+
+    .banner h2 {
+        font-size: 22px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header style="color: #0269a9;">My Website</header>
+<nav>
+    <a onclick="showPage('home')">首頁</a>
+    <a onclick="showPage('portfolio')">作品集</a>
+    <a onclick="showPage('about')">關於我</a>
+</nav>
+
+<div class="banner" onclick="showPage('home')">
+</div>
+
+
+<div id="home-area" style="text-align:center;padding:50px;">
+    <h1 style="color: #0269a9;">歡迎來到我的網站</h1><br>
+    <p style="color: #0269a9;">嗨~我是廖思嘉目前就讀台南應用科技大學的多媒體動畫系</p>
+    <p style="color: #0269a9;">如果想更了我，歡迎點選上方導覽頁的關於我</p>
+    <p style="color: #0269a9;">如果想看我的作品，歡迎點選上方導覽頁的作品集</p>
+</div>
+
+<!-- ===== 作品集 ===== -->
+<div id="portfolio-area">
+<section>
+<h2 style="color: #0269a9; text-align:center">作品展示區</h2><br><br>
+
+<div class="work-grid">
+    <div class="work-item" onclick="openImg(this)">
+        <img src="0001.png">
+        <div class="work-info"><h3>租屋處</h3><p>2025</p></div>
+    </div>
+    <div class="work-item" onclick="openImg(this)">
+        <img src="0002.png">
+        <div class="work-info"><h3>廁所</h3><p>2025</p></div>
+    </div>
+    <div class="work-item" onclick="openImg(this)">
+        <img src="0003.PNG">
+        <div class="work-info"><h3>練習</h3><p>2023</p></div>
+    </div>
+    <div class="work-item" onclick="openImg(this)">
+        <img src="0004.JPG">
+        <div class="work-info"><h3>掌控</h3><p>2025</p></div>
+    </div>
+    <div class="work-item" onclick="openImg(this)">
+        <img src="0005.PNG">
+        <div class="work-info"><h3>練習 女高中生</h3><p>2023</p></div>
+    </div>
+    <div class="work-item" onclick="openImg(this)">
+        <img src="0006.PNG">
+        <div class="work-info"><h3>同病相憐</h3><p>2024</p></div>
+    </div>
+    <div class="work-item" onclick="openImg(this)">
+        <img src="0007.PNG">
+        <div class="work-info"><h3>卡芙卡</h3><p>2023</p></div>
+    </div>
+    <div class="work-item" onclick="openImg(this)">
+        <img src="0008.PNG">
+        <div class="work-info"><h3>練習2</h3><p>2023</p></div>
+    </div>
+    <div class="work-item" onclick="openImg(this)">
+        <img src="0009.PNG">
+        <div class="work-info"><h3>沉溺</h3><p>2023</p></div>
+    </div>
+    <div class="work-item" onclick="openImg(this)">
+        <img src="0010.PNG">
+        <div class="work-info"><h3>場景練習1</h3><p>2026</p></div>
+    </div>
+    <div class="work-item" onclick="openImg(this)">
+        <img src="0011.PNG">
+        <div class="work-info"><h3>場景練習2</h3><p>2026</p></div>
+    </div>
+    <div class="work-item" onclick="openImg(this)">
+        <img src="0012.PNG">
+        <div class="work-info"><h3>謎之嶼</h3><p>2025</p></div>
+    </div>
+</div>
+</section>
+</div>
+
+<!-- ===== 關於我 ===== -->
+<div id="about-area">
+    <div class="namecard">
+        <div class="name">Si jan Liao</div>
+        <div class="job">台南應用科技大學</div>
+        <p>生日:9月6日</p>
+        <p>一個正在上大學的，無名小卒</p>
+        <p style="color: #0269a9;">#處女座 #INFP</p>
+        <div class="circle"></div>
+        <div class="circle2"></div>
+    </div>
+</div>
+
+<!-- 彈窗 -->
+<div class="modal" id="modal" onclick="this.style.display='none'">
+    <img id="modal-img">
+</div>
+
+
+
+<script>
+function showPage(p){
+    ['home','portfolio','about'].forEach(id=>{
+        document.getElementById(id+'-area').style.display='none';
+    })
+    document.getElementById(p+'-area').style.display='block';
+}
+
+function openImg(el){
+    document.getElementById('modal-img').src =
+        el.querySelector('img').src;
+    document.getElementById('modal').style.display='flex';
+}
+</script>
+
+</body>
+</html>
